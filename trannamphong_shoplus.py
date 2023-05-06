@@ -89,6 +89,9 @@ while max_tries_all > 0:
                     print("Call api to save data")
                     if "data" not in detail.keys():
                         print(response.text)
+                        if detail["errorCode"] == "SUBSCRIBE_TIMES_LIMITATIONS":
+                            print("SUBSCRIBE_TIMES_LIMITATIONS")
+                            max_tries_all = 0
                     api_tool.save_opera_shoplus(detail)
                     # video_post = VideoPost.from_shoplus(detail["data"])
                     # if video_post != None:
