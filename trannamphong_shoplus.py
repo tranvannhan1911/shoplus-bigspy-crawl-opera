@@ -87,6 +87,8 @@ while max_tries_all > 0:
                     response = api.get_shoplus_ads_detail(post["id"], post["author_id"], post["video_id"], last_time_date, token, cookie)
                     detail = json.loads(response.text)
                     print("Call api to save data")
+                    if "data" not in detail.keys():
+                        print(response.text)
                     api_tool.save_opera_shoplus(detail)
                     # video_post = VideoPost.from_shoplus(detail["data"])
                     # if video_post != None:
