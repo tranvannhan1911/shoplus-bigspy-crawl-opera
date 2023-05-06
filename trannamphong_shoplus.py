@@ -81,6 +81,7 @@ while max_tries_all > 0:
             for post in data["data"]["items"]:
                 try:
                     if post["id"] in ads_ids:
+                        print("skip ads id: "+ str(post["id"]))
                         continue
                     last_time_seconds = post["last_time"] // 1000
                     last_time_date = datetime.fromtimestamp(last_time_seconds).strftime('%Y-%m-%d')
@@ -92,6 +93,7 @@ while max_tries_all > 0:
                         if detail["errorCode"] == "SUBSCRIBE_TIMES_LIMITATIONS":
                             print("SUBSCRIBE_TIMES_LIMITATIONS")
                             max_tries_all = 0
+                            break
                     api_tool.save_opera_shoplus(detail)
                     # video_post = VideoPost.from_shoplus(detail["data"])
                     # if video_post != None:
