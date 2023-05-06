@@ -78,6 +78,7 @@ while max_tries_all > 0:
             data = api.get_shoplus_ads_list(page, token, cookie)
             # print(data)
             # print()
+            br = False
             for post in data["data"]["items"]:
                 try:
                     if post["id"] in ads_ids:
@@ -93,6 +94,7 @@ while max_tries_all > 0:
                         if detail["errorCode"] == "SUBSCRIBE_TIMES_LIMITATIONS":
                             print("SUBSCRIBE_TIMES_LIMITATIONS")
                             max_tries_all = 0
+                            br = True
                             break
                     api_tool.save_opera_shoplus(detail)
                     # video_post = VideoPost.from_shoplus(detail["data"])
@@ -104,6 +106,8 @@ while max_tries_all > 0:
                 except Exception as e:
                     print(traceback.format_exc())
                     print(post)
+            if br:
+                break
             time.sleep(5)
     except Exception as e:
         print(traceback.format_exc())
